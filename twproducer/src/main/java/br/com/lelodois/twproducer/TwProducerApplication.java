@@ -21,7 +21,11 @@ public class TwProducerApplication {
     public void start() {
         logger.info("Start");
 
-        logger.info("Connected");
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Stopping...");
+            client.stop();
+            producer.close();
+        }));
 
         while (!client.isDone()) {
             String message = client.poll(5, TimeUnit.SECONDS);

@@ -28,4 +28,8 @@ public class TwProducer {
                 new ProducerRecord<>(topic, message),
                 callback);
     }
+
+    public void close() {
+        producer.close();
+    }
 }
